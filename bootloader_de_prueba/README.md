@@ -144,9 +144,27 @@ Ahora vamos a intentar mostar algo por pantalla, para ello haremos uso de la int
 `0x13` |    320x200  |   Gráficos de 256 colores (MCGA,VGA) 
 
 Nosotros por ahora con usar el primer modo de video, de 40x25 con texto en B/H, nos es suficiente. Para ello usaremos el siguiente fragmento de codigo.
+
 ```nasm
 mov ah, 0x00  ; Servicio de modo video
 mov al, 0x00  ; Modo de video 0x00
 int 0x10      ; Interupcion 10H al BIOS
 ```
-Antes
+----
+Aunque con esto no hemos escrito aun nada, veamos como hacer esto. Para escribir texto en modo teletipo, tenemos el servicio de `escribir texto en Modo teletipo`. Este servicio es el `0x0e`. En el registro `al` se recibe un caracter `ASCII`, en el registro `bh` el numero de pagina y en el `bl` el color(para modos graficos).
+```
+- el cursor avanza después de escribir
+- los caracteres BEL (7), BS (8), LF (A) y CR (D) son
+tratados como códigos de control
+- para algunas BIOS más antiguas (19/10/81), el registro BH debe
+apuntar a la página mostrada actualmente
+- en los adaptadores CGA esta función puede deshabilitar la señal de video mientras se realiza la
+salida que causa flitter.
+```
+Por lo que nuestro codigo quedaria asi, si queremos escribir un caracter `'H'` por ejemplo:
+```nasm
+mov ah, 0x0e  ; Servicio de texto en Modo teletipo
+mov al, 'H'   ; Mover el valor del caracter 'H' al registro al
+int 0x10      ; Interrupcion al BIOS mediante 10h
+```
+----
