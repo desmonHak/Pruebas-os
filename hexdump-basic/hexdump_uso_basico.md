@@ -22,7 +22,7 @@ Este codigo lo hemos compilado usando el siguiente comando: [ __`nasm -f bin bin
 
 ----
 ## Hexdump contiene estos parametros:
-<br>
+
 ```batch
     [*] Options:
     -b, --one-byte-octal      one-byte octal display
@@ -50,7 +50,6 @@ Este codigo lo hemos compilado usando el siguiente comando: [ __`nasm -f bin bin
 
 ### Acortado:
 
-<br>
 
 ```C
     PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump code.bin
@@ -63,7 +62,6 @@ Este codigo lo hemos compilado usando el siguiente comando: [ __`nasm -f bin bin
 
 ### Sin acortar (Parametro -v):
 
-<br>
 ```C
     PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -v code.bin
     0000000 04eb 7c00 7e00 00bd 897e 00ec 0000 0000
@@ -114,7 +112,6 @@ Basicamente redirecionamos la salida del comando hexdump como la entrada para el
 ### Usando -n y -s para leer un rango: 
 podemos combinar ambos para leer unciamente un rango de direciones de memoria, supongamos que queremos leer desde [`0x0000010 - 0x0000020`], para esto, pasamos la direcion de memoria inicial a decimal 0x0000010 = 16, y los mismo con la final, `0x0000020 = 32`. Esto quiere decir que tenrmos un offset de `32 - 16 = 16 Bytes` que leer, dicho offset empieza en la direcion decimal 16 y acaba en la direcion decimal 32, por lo que con este calculo hecho realizamos lo siguiente: `hexdump -n 16 -s 16 code.bin`. Esto salta los primeros 16bytes, situandonos en la direcion `0x0000010` mediante el parametro `-n`, y mediante `-s 16`, especificamos que solo queremos leer `16 bytes`, lop cual lee hasta la cirecion `0x0000020` ya que `0x0000010 + 0x10 = 0x0000020`. 0x10 es 16 en decimal.
 
-<br>
 ```C
     PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -n 16 -s 16 code.bin
     0000010 0000 0000 0000 0000 0000 0000 0000 0000
@@ -124,7 +121,6 @@ podemos combinar ambos para leer unciamente un rango de direciones de memoria, s
 
 - [__-b__] Este parametro nos da como salida, los valores en formato Byte octal, es decir, un byte octal se forma 8**3, lo que nos da un rango octal de entre [`777 - 000`]:
 
-<br>
 ```C
     Decimal          Octal
     0                  0
@@ -142,7 +138,6 @@ podemos combinar ambos para leer unciamente un rango de direciones de memoria, s
     511               777
 ```
 
-<br>
 ```C
     PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -b code.bin
     0000000 353 004 000 174 000 176 275 000 176 211 354 000 000 000 000 000
@@ -155,7 +150,7 @@ podemos combinar ambos para leer unciamente un rango de direciones de memoria, s
 
 - [__-c__] Este parametro nos da la salida en forma de caracteres legibles:
 
-<br>
+
 ```C
     PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -c code.bin
     0000000 353 004  \0   |  \0   ~ 275  \0   ~ 211 354  \0  \0  \0  \0  \0
@@ -168,7 +163,6 @@ podemos combinar ambos para leer unciamente un rango de direciones de memoria, s
 
 - [__-C__] Este parametro nos muestra una salida estandar de bytes tipo hexadecimal clasico pero con un apartado en la derecha donde se representa cada byte hexadecimal con un caracter `ASCII`:
 
-<br>
 ```C
     00000000  eb 04 00 7c 00 7e bd 00  7e 89 ec 00 00 00 00 00  |...|.~..~.......|
     00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
@@ -184,7 +178,7 @@ podemos combinar ambos para leer unciamente un rango de direciones de memoria, s
 b   * 16 * 16  +   a   * 16 
 137 * 16 * 16  +   124 * 16 = 35198 
 ```
-<br>
+
 ```C
     PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -d code.bin
     0000000   01259   31744   32256   00189   35198   00236   00000   00000
@@ -196,7 +190,7 @@ b   * 16 * 16  +   a   * 16
 ----
 - [__-x__] Este parametro nos mostrara el resultado en formato de numeros de `2 bytes` hexadecimales:
 
-<br>
+
 ```C
     0000000    04eb    7c00    7e00    00bd    897e    00ec    0000    0000
     0000010    0000    0000    0000    0000    0000    0000    0000    0000
