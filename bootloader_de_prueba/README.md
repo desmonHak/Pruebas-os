@@ -198,3 +198,13 @@ dw 0xaa55                  ; escribir al final del binario
                            ; los bytes 0xaa y 0x55 para
                            ; firmar el MBR
 ```
+Si compilamos con un:
+```batch
+nasm -f bin boot.asm -o code.bin
+```
+Y ejecutamos con qemu:
+```batch
+qemu-system-x86_64 code.bin
+```
+Podemos ver como se nos a impreso el caracter 'H' en nuestra maquina virtual:
+!["Pantalla qemu 1"](./../Imagenes/qemu-screen-1.png)
