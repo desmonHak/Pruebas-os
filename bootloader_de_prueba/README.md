@@ -143,10 +143,10 @@ Ahora vamos a intentar mostar algo por pantalla, para ello haremos uso de la int
 `0x12` |    640x480  |   Gráficos de 16 colores (VGA)
 `0x13` |    320x200  |   Gráficos de 256 colores (MCGA,VGA) 
 
-Nosotros por ahora con usar el primer modo de video, de 40x25 con texto en B/H, nos es suficiente.
-
+Nosotros por ahora con usar el primer modo de video, de 40x25 con texto en B/H, nos es suficiente. Para ello usaremos el siguiente fragmento de codigo.
 ```nasm
-mov ah, 0x00
-mov al, 0x00
-int 0x10
+mov ah, 0x00  ; Servicio de modo video
+mov al, 0x00  ; Modo de video 0x00
+int 0x10      ; Interupcion 10H al BIOS
 ```
+Antes
