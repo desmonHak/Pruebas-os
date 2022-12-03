@@ -2,7 +2,7 @@
 
 Hexdump es un programa que nos permite "dumpear" un programa binario, es decir, nos permite leer su contenido de una manera comoda indicandonos su contenido en binario, octal, decimal, hexadecimal o ascii. Este programa nos ayudara a estudiar el codigo de nuestros binarios y poder ver el tamaño de una instrucion en ensamblador traducido a codigo de ejecutable.
 
-# Hexdump contiene estos parametros:
+### Hexdump contiene estos parametros:
 Options:
  -b, --one-byte-octal      one-byte octal display
  -c, --one-byte-char       one-byte character display
@@ -26,15 +26,15 @@ For more details see hexdump(1).
 Todos estos parametros podemos listarlos con -h o --help
 
 
--v Por defecto, hexdump no nos mostrara los valores de un rango de memoria si estas son los mismos, por ejemplo, supongamos que desde la posicion 0x0000010 hasta la posicion 0x00001e0 solo tenemos unicamente valores 0x00 (nop). Solo se nos mostrata una pequeña parte de todo este para facilitar su lectura, pero si por alguna casualidad deseamos ver este contenido, el parametro -v nos muestra todo sin excepcion (hexdump nos indicara una acortacion con un asterisco *):
-# Acortado:
+- -v Por defecto, hexdump no nos mostrara los valores de un rango de memoria si estas son los mismos, por ejemplo, supongamos que desde la posicion 0x0000010 hasta la posicion 0x00001e0 solo tenemos unicamente valores 0x00 (nop). Solo se nos mostrata una pequeña parte de todo este para facilitar su lectura, pero si por alguna casualidad deseamos ver este contenido, el parametro -v nos muestra todo sin excepcion (hexdump nos indicara una acortacion con un asterisco *):
+### Acortado:
 PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump code.bin
 0000000 04eb 7c00 7e00 00bd 897e 00ec 0000 0000
 0000010 0000 0000 0000 0000 0000 0000 0000 0000
 *
 00001f0 0000 0000 0000 0000 0000 0000 0000 aa55
 0000200
-# Sin acortar (Parametro -v)
+### Sin acortar (Parametro -v)
 PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -v code.bin
 0000000 04eb 7c00 7e00 00bd 897e 00ec 0000 0000
 0000010 0000 0000 0000 0000 0000 0000 0000 0000
@@ -74,10 +74,10 @@ hexdump -v code.bin | more
 Basicamente redirecionamos la salida del comando hexdump como la entrada para el comando more, el cual nos muestra los datos con pausaciones.
 
 
--s Este parametro nos permite saltar un offset  que queramos, recibe por parametro la cantidad de bytes del offset. Un ejemplo seria hacer hexdump -s 10 code.bin. Lo cual nos mostraria el contenido del binario apartir de los primeros 10bytes iniciales.
+- -s Este parametro nos permite saltar un offset  que queramos, recibe por parametro la cantidad de bytes del offset. Un ejemplo seria hacer hexdump -s 10 code.bin. Lo cual nos mostraria el contenido del binario apartir de los primeros 10bytes iniciales.
 
 
--n Este parametro especifica la cantidad de bytes a leer (offset). Ejemplo hexdump -n 10 code.bin. Esto nos leera unicamente los primeros 10bytes del binario.
+- -n Este parametro especifica la cantidad de bytes a leer (offset). Ejemplo hexdump -n 10 code.bin. Esto nos leera unicamente los primeros 10bytes del binario.
 
 usando -n y -s para leer un rango: podemos combinar ambos para leer unciamente un rango de direciones de memoria, supongamos que queremos leer desde [0x0000010-0x0000020], para esto, pasamos la direcion de memoria inicial a decimal 0x0000010 = 16, y los mismo con la final, 0x0000020 = 32. Esto quiere decir que tenrmos un offset de 32-16=16Bytes que leer, dicho offset empieza en la direcion decimal 16 y acaba en la direcion decimal 32, por lo que con este calculo hecho realizamos lo siguiente: hexdump -n 16 -s 16 code.bin. Esto salta los primeros 16bytes, situandonos en la direcion 0x0000010 mediante el parametro -n, y mediante -s 16, especificamos que solo queremos leer 16 bytes, lop cual lee hasta la cirecion 0x0000020 ya que 0x0000010 + 0x10 = 0x0000020. 0x10 es 16 en decimal.
 PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -n 16 -s 16 code.bin
@@ -85,7 +85,7 @@ PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -n 16 -s 16 code.bin
 0000020
 
 
--b Este parametro nos da como salida, los valores en formato Byte octal, es decir, un byte octal se forma 8**3, lo que nos da un rango octal de entre [777-000]:
+- -b Este parametro nos da como salida, los valores en formato Byte octal, es decir, un byte octal se forma 8**3, lo que nos da un rango octal de entre [777-000]:
  Decimal      Octal
  0              0
  1              1
@@ -108,7 +108,7 @@ PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -b code.bin
 0000200
 
 
--c Este parametro nos da la salida en forma de caracteres legibles:
+- -c Este parametro nos da la salida en forma de caracteres legibles:
 PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -c code.bin
 0000000 353 004  \0   |  \0   ~ 275  \0   ~ 211 354  \0  \0  \0  \0  \0
 0000010  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0
@@ -117,7 +117,7 @@ PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -c code.bin
 0000200
 
 
--C Este parametro nos muestra una salida estandar de bytes tipo hexadecimal clasico pero con un apartado en la derecha donde se representa cada byte hexadecimal con un caracter ASCII:
+- -C Este parametro nos muestra una salida estandar de bytes tipo hexadecimal clasico pero con un apartado en la derecha donde se representa cada byte hexadecimal con un caracter ASCII:
 00000000  eb 04 00 7c 00 7e bd 00  7e 89 ec 00 00 00 00 00  |...|.~..~.......|
 00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
 *
@@ -125,7 +125,7 @@ PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -c code.bin
 00000200
 
 
--d Este parametro nos muestra el resultado en forma de numeros decimales formados por 2bytes cada uno, la operacion que realiza es la siguiente:
+- -d Este parametro nos muestra el resultado en forma de numeros decimales formados por 2bytes cada uno, la operacion que realiza es la siguiente:
 a = 0x7e = 124; b = 0x89 = 137 ;
 a*16*16 + b*16 ; 
 137*16*16 + 124*16 = 35198  :
@@ -137,7 +137,7 @@ PS C:\Users\Usuario\Documents\GitHub\Pruebas-os> hexdump -d code.bin
 0000200
 
 
- -x Este parametro nos mostrara el resultado en formato de numeros de 2 bytes hexadecimales:
+ - -x Este parametro nos mostrara el resultado en formato de numeros de 2 bytes hexadecimales:
  0000000    04eb    7c00    7e00    00bd    897e    00ec    0000    0000
 0000010    0000    0000    0000    0000    0000    0000    0000    0000
 *
