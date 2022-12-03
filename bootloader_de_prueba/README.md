@@ -168,3 +168,33 @@ mov al, 'H'   ; Mover el valor del caracter 'H' al registro al
 int 0x10      ; Interrupcion al BIOS mediante 10h
 ```
 ----
+
+Ahora hay que preguntarse, todo este codigo que hemos estado, donde podemos ponerlo. Este codigo es recomendable escribirlo apartir de una etiqueta, podeis llamarla como querais, en mi caso la llamare `start` y es donde empezara el codigo de mi bootloader. Debemos poner apartir de la directiva `[bits 16]` un `jmp` a nuestra etiqueta por cuestiones de seguridad, ya que si introducimos datos antes del codigo, y la maquina los lee, los tratara como instruciones, y como no  queremos que un string sea ejecutada como instruciones, indicamos que antes de llegar a esta secion de datos si es que existe, salta a nuestra etiqueta donde se aloja el codigo que si queremos ejecutar. Como tal no tenemos seciones, como en un programa convencional, no tenemos un `.data`, `.bss` o `.text`, es por eso que para nuestro ordenador, un string, una direcion de memoria, o una instrucion, seran ejecutas sin distincion. Resumiendo todo, con el `jmp` saltamos  directamente a nuestro codigo nada mas el PC empieze a ejecutar nuestro codigo, de esta manera, podemos escribir los datos que necesitemos entre `jmp start` y la etiqueta `start`.
+Otra cosa importante es hacer un `jmp $`, para el que no sepa que es esto, es hacer un salta a la misma direcion donde se encuentre esta instrucion, haciendose un bucle infinito. ¿Por que queremos esto? La respuesta es sencilla, una vez finalize el codigo de nuestro bootloader, si el PC no encuentra "nada mas que hacer" finalizara el programa y no queremos eso, para solucionarlo, hacemos un salto a si mismo, entrando en este bucle infinito que deja corriendo nuestro codigo hasta que se apage la maquina.
+
+Por ahora, tenemos esto de codigo en nuestro archivo `boot.asm`:
+```nasm
+[bits 16]         ; Se quiere escribir codigo de 16 bits
+jmp start         ; Saltamos directamente a la etiqueta
+                  ; que contiene el codigo de nuestro
+                  ; bootloader.
+
+
+start:
+    mov ah, 0x00  ; Servicio de modo video
+    mov al, 0x00  ; Modo de video 0x00
+    int 0x10      ; Interupcion 10H al BIOS
+
+    mov ah, 0x0e  ; Servicio de texto en Modo teletipo
+    mov al, 'H'   ; Mover el valor del caracter 'H' al registro al
+    int 0x10      ; Interrupcion al BIOS mediante 10h
+
+    jmp $
+
+
+times 510 -( $ - $$ ) db 0 ; Rellenar con valores nulos
+                           ; hasta que se alcance 510 bytes
+dw 0xaa55                  ; escribir al final del binario 
+                           ; los bytes 0xaa y 0x55 para
+                           ; firmar el MBR
+```
