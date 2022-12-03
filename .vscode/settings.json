@@ -10,24 +10,22 @@
     "*.INC*": "pl1",
     "*.INCLUDE*": "pl1",
     "*.JCL*": "jcl",
-    "*.ASM*": "hlasm",
-    "*.ASSEMBLE*": "hlasm",
-    "*.HLASM*": "hlasm",
-    "*.HLA*": "hlasm",
-    "*.MACLIB*": "hlasm",
     "*.EXEC*": "rexx",
     "*.REXX*": "rexx",
     "*.REXXINC*": "rexx",
-    "*.copyasm": "hlasm",
-    "*.macasm": "hlasm",
-    "*.bms": "hlasm",
     "*.rex": "rexx",
     "*.rexx": "rexx",
-    "*.asm": "asm-collection",
+    //"*.asm": "asm-collection",
+    "*.asm" : "asm-list-file",
     "INTERRUP.C": "cpp",
     "exec.h": "c",
     "anti-warnings.h": "c",
-    "hex-data.h": "c"
+    "hex-data.h": "c",
+    "*.md" : "markdown",
+    "Makefile" : "makefile",
+    "*.rs" : "rust",
+    "*.py" : "python",
+
   },
   "lldb.displayFormat": "auto",
   "lldb.showDisassembly": "auto",
@@ -51,7 +49,7 @@
     "-Wsign-conversion"
   ],
   "C_Cpp_Runner.enableWarnings": true,
-  "C_Cpp_Runner.warningsAsError": false,
+  "C_Cpp_Runner.warningsAsError": true,
   "C_Cpp_Runner.compilerArgs": [],
   "C_Cpp_Runner.linkerArgs": [],
   "C_Cpp_Runner.includePaths": [],
@@ -68,3 +66,5 @@
     "**/.vscode/**"
   ]
 }
+
+
