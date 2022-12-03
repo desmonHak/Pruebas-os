@@ -199,17 +199,17 @@ dw 0xaa55                  ; escribir al final del binario
                            ; firmar el MBR
 ```
 Si compilamos con un:
-```batch
+```batch bash
 nasm -f bin boot.asm -o code.bin
 ```
 Y ejecutamos con qemu:
-```batch
+```batch bash
 qemu-system-x86_64 code.bin
 ```
 Podemos ver como se nos a impreso el caracter 'H' en nuestra maquina virtual:
 !["Pantalla-qemu-1"](./../Imagenes/qemu-screen-1.png)
 Ahora vamos a estudiar el codigo de nuestro bootloader con hexdump y objdump(aunque estudiar el codigo con objdump no es muy fiable si empieza a haber datos, ya que interpretara los datos como instruciones de codigo):
-```batch
+```batch bash
 hexdump code.bin
 ```
 !["Codigo-bootloader-hex-2"](./../Imagenes/Codigo-bootloader-hex-2.png)
@@ -224,10 +224,11 @@ hexdump code.bin
 
 
 Y el comando objdump para obtener los opcodes de las instruciones:
-```batch
+```batch bash
 objdump -b binary -M intel -m i8086 -D code.bin
 ```
 con el parametro `-b` especificamos el fomarto del archivo, que es `binary = binario`, con `-M intel` especificamos que la salida nos la de en sintaxis `intel` y no sintaxis `T&AT` que es la que muestra por defecto. `-m i8086` que es la arquitectura, i8086 es lo mismo que x86. `-D` para decir que desensable todas las seciones del programa, y por ultimo especificamos el archivo binario a desensamblar, en mi caso `code.bin`.
+
 !["Codigo-objdump-1"](./../Imagenes/Codigo-objdump-1.png)
 | Adress | opcode | instrucion |
 |:------:|:------:|:-----------|
@@ -241,4 +242,6 @@ con el parametro `-b` especificamos el fomarto del archivo, que es `binary = bin
 |        | ...    |                            |
 |1fe:    | 55     |push   bp                   |
 |1ff:    | aa     |stos   BYTE PTR es:[di],al  |
+
+
 Aqui podemos ver la correspondencia de cada instrucion `asm` a codigo hexadecimal (opcode). Aun asi, esto no es fiable del todo si no sabemos donde se encuentra nuestro datos y donde se encuentra nuestro codigo. Por ejemplo, podemos ver que el `word` `0xaa55` nos lo a interpretado como la instrucion `push bp` y la instrucion `stos BYTE PTR es:[di], al`. Por lo que tenga cuidado con lo que lee. Quitando estos dos opcodes, los demas son correctos. A vecs necesitaremos saber el opcode de una instrucion especifica, esto lo podemos sacas de varias maneras `Metasploit` tiene un script para esta tarea, yo programe una pieza de coidgo que intenta recrear este para realizar la tarea, se llama [get_opcode.c](../get_opcode.md).
