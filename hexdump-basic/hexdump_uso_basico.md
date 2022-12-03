@@ -2,7 +2,6 @@
 
 Hexdump es un programa que nos permite __"dumpear"__ un programa binario, es decir, nos permite leer su contenido de una manera comoda indicandonos su contenido en binario, octal, decimal, hexadecimal o ascii. Este programa nos ayudara a estudiar el codigo de nuestros binarios y poder ver el tamaño de una instrucion en ensamblador traducido a codigo de ejecutable.
 
-
 ----
 ## Codigo ASM usado epara los ejemplos:
 
