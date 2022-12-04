@@ -93,5 +93,6 @@ Primero decir por que los registros reales, tiene en su nombre una `l`, o una `h
 |`bh` + `bl`| `bx` |
 |`ch` + `cl`| `cx` |
 |`dh` + `dl`| `dx` |
+
 Esto es asi ya que los registros de `16bits` y superiores se componen de lo que llamamos una parte alta (`hight = h`) de ahi la `h` de los registros `ah`, `bh`, `ch`, `dh` y una parte baja (`low = l`). He de ahi la `l` de los registro de `8bits`, `al`, `bl`, `cl`, `dl`. 
 Nuestro registro `xx` entonces esta formado por su parte alta `bh` y su parte baja `bl`, por lo que si ponemos el byte `0xff` en `bl` y el byte `0xaa` en el registro `bh`, el valor del registro `bx`, es `0xaaff`
