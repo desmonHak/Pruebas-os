@@ -21,6 +21,7 @@
     "*.copyasm": "asm-list-file",
     "*.macasm": "asm-list-file",
     "*.bms": "asm-list-file",
+    
     "*.rex": "rexx",
     "*.rexx": "rexx",
     "*.asm": "asm-list-file",
