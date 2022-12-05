@@ -13,8 +13,6 @@ En esta foto podemos ver la estructura de memoria de lo que ocurre en nuestro PC
 - Por ultimo encontramos entre las direciones `0x000C0000 - 0x00100000` un area de datos donde se aloja el programa BIOS cargado en memoria.
 - Todo lo posteior a la secion `0x00100000` esta fuera de libre uso para la creacion de nuestro OS (Operative System).
 
-<img style="display: block; margin: auto;"
-src="https://stackoverflow.design/assets/img/logos/so/logo-print.svg">
 
 <div style="text-align: center;">
 
@@ -81,7 +79,7 @@ Aqui el valor que se a de colocar en el offset 0x04 de nuestros registros para d
 ----
 ## Requisitos minimos para programar nuestro bootloader simple:
 
-- Necesitamos minimo saber `Assembly x86` (`asm`), en especifico estaremos usando sintaxis `intel` y escribiendo codigo de `16 bits` principalmete.
+- <span style="color:blue">Necesitamos minimo saber `Assembly x86` (`asm`), en especifico estaremos usando sintaxis `intel` y escribiendo codigo de `16 bits` principalmete.</spam>
 - En cuanto al software que necesitaremos minimo sera lo siguiente:
 
     1. __`nasm`__. Lo usaremos para generar binario planos mediante codigo ensamblador
