@@ -34,6 +34,8 @@ Aqui describimos el uso de cada offset de los registros que definen las particio
 |**`0x0c`**| (4 Bytes) Longitud de la particion en sectores .|
 
 Aqui el valor que se a de colocar en el offset 0x04 de nuestros registros para definir el tipo de particion.
+<div style="margin-left: auto; margin-right: auto;">
+
 |valor|tipo|
 |:--------:|:------------------------------------------------------:|
 |**`0x00`**| Empty = Vacio.                                         |
@@ -67,8 +69,10 @@ Aqui el valor que se a de colocar en el offset 0x04 de nuestros registros para d
 |**`0x10`**| OPUS (?).                                              |
 |**`0x0e`**| Hidden DOS 12-bit FAT                                  |
 |**`...`**| ...                                                     |
-----
 
+</div>
+
+----
 ## Requisitos minimos para programar nuestro bootloader simple:
 
 - Necesitamos minimo saber `Assembly x86` (`asm`), en especifico estaremos usando sintaxis `intel` y escribiendo codigo de `16 bits` principalmete.
@@ -101,12 +105,18 @@ Podemos compiladr nuestro codigo `asm` con el siguiente comando:
 nasm -f bin boot.asm -o code.bin
 ```
 Aqui le decimas a nasm que el formato de nuestro binario es de tipo __"binario plano__" mediante el `-f bin`, acontinuacion especificamos el archivo que contiene nuestro codigo asm (`boot.asm`) y con la flag `-o` decimos que el nombre del archivo de salida es `code.bin`. Esto nos genera una rchivo binario de `512 bytes`
+
+
 ![Propiedades-bootloader](./../Imagenes/propiedades-bootloader.png)
 Ahora vamos a ver el codigo hexadecimal que se a generado haciendo uso en mi caso de `hexdump`:
 ```batch bach
  hexdump code.bin
 ```
-![Codigo-bootloader-hex-1](./../Imagenes/Codigo-bootloader-hex-1.png)
+
+-> ![Codigo-bootloader-hex-1](./../Imagenes/Codigo-bootloader-hex-1.png) <-
+
+
+
 Como podemos observar, todo el codigo son valores nulos (`0x00 0x00 = 0x0000`) excepto los 2 ultimos bytes del binario que son `0xaa55` como especificamos nosotros. Tmb podemos observas que nos han puesto un hasterisco de por medias el cual indica que nos han acortado el resultado debido a que en esas direciones de memoria se siguen teniendo los mismo valores, los cuales son nulos. Podemos especificar que se nos muestre toda la salida completa con el argumento `-v` en hexdump. Cabe mencionar, que la columna de la izquierda indica la direcion de memoria, y las demas son los datos(el codigo de nuestro binario en hexadecimal), en la posicion `0x0000` de nuestro binario tenemos el valor `0x0`, lo mismo en la posicion `0x0001` y asi hasta la posicion `0x1fe`, que tiene el valor `0xaa` y la posicion `0x1ff` que tiene el valor `0x55`. Estas direciones de memoria se pueden calcular con la columna de la izquierda. Por cada fila, se muestran una cantidad de `16 bytes`, estos van desde `0x0 a 0xf` o lo que es lo mismo en decimal, de `0 a 15`. Para calcular nuestra direcion de memoria en la que se encuentra el byte `0xaa`, situamos la fila mediante la columa de direciones de memoria, nuestra fila en este caso es la `0x01f0`, a continuacion buscamos la columna donde se situa nuestro byte, en esta caso, el byte esta en la columna `0xe` asi que `0x01f0 + 0xe = 0x01fe`, nuestro caracter esta en `0x01fe`.
 
 
