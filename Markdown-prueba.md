@@ -71,7 +71,13 @@ $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
 $$\alpha, \Alpha, \beta, \Beta, \gamma, \Gamma, \pi, \Pi, \phi, \varphi, \mu, \Phi \cos (2\theta) = \cos^2 \theta - \sin^2 \theta, Esto, usa, latex$$
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) x \equiv a \pmod{b}$$
 $$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
-$$\begin{equation} x = a_0 + \cfrac{1}{a_1 + \cfrac{1}{a_2  + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }\end{equation}$$
+$$\begin{equation} x = a_0 + 
+\cfrac{1}{a_1 + 
+\cfrac{1}{a_2  + 
+\cfrac{1}{a_3 + 
+\cfrac{1}{a_4} } } }
+\end{equation}$$
+
 $$\sqrt[n]{1+x+x^2+x^3+\dots+x^n}$$
 
 
