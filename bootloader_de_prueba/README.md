@@ -249,7 +249,6 @@ hexdump code.bin
 |`00001f0`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`aa`|`55`|
 |`0000200`|   F|   I|   N|:)  |D   |   E|   L|:(  |   A|   R|   C|   H|   I|   V|   O|   .|
 
-
 Y el comando objdump para obtener los opcodes de las instruciones:
 ```batch bash
 objdump -b binary -M intel -m i8086 -D code.bin
@@ -259,6 +258,8 @@ con el parametro `-b` especificamos el fomarto del archivo, que es `binary = bin
 <div id="mycenter">
 
 !["Codigo-objdump-1"](./../Imagenes/Codigo-objdump-1.png)
+</div>
+
 | Adress | opcode | instrucion |
 |:------:|:------:|:-----------|
 |  0:    | eb 00  |jmp    0x2  |
@@ -271,13 +272,13 @@ con el parametro `-b` especificamos el fomarto del archivo, que es `binary = bin
 |        | ...    |                            |
 |1fe:    | 55     |push   bp                   |
 |1ff:    | aa     |stos   BYTE PTR es:[di],al  |
-</div>
+
 
 Aqui podemos ver la correspondencia de cada instrucion `asm` a codigo hexadecimal (opcode). Aun asi, esto no es fiable del todo si no sabemos donde se encuentra nuestro datos y donde se encuentra nuestro codigo. Por ejemplo, podemos ver que el `word` `0xaa55` nos lo a interpretado como la instrucion `push bp` y la instrucion `stos BYTE PTR es:[di], al`. Por lo que tenga cuidado con lo que lee. Quitando estos dos opcodes, los demas son correctos. A vecs necesitaremos saber el opcode de una instrucion especifica, esto lo podemos sacas de varias maneras `Metasploit` tiene un script para esta tarea, yo programe una pieza de coidgo que intenta recrear este para realizar la tarea, se llama [get_opcode.c](../get_opcode.md).
 
 <style>
 #mycenter {
     text-align:center;
-    color: #000;
+    color: #00A0;
 }
 </style>
