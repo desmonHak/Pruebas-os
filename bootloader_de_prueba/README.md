@@ -34,7 +34,7 @@ Aqui describimos el uso de cada offset de los registros que definen las particio
 |**`0x0c`**| (4 Bytes) Longitud de la particion en sectores .|
 
 Aqui el valor que se a de colocar en el offset 0x04 de nuestros registros para definir el tipo de particion.
-<div style="margin-left: auto; margin-right: auto;">
+
 
 |valor|tipo|
 |:--------:|:------------------------------------------------------:|
@@ -70,7 +70,6 @@ Aqui el valor que se a de colocar en el offset 0x04 de nuestros registros para d
 |**`0x0e`**| Hidden DOS 12-bit FAT                                  |
 |**`...`**| ...                                                     |
 
-</div>
 
 ----
 ## Requisitos minimos para programar nuestro bootloader simple:
@@ -106,19 +105,25 @@ nasm -f bin boot.asm -o code.bin
 ```
 Aqui le decimas a nasm que el formato de nuestro binario es de tipo __"binario plano__" mediante el `-f bin`, acontinuacion especificamos el archivo que contiene nuestro codigo asm (`boot.asm`) y con la flag `-o` decimos que el nombre del archivo de salida es `code.bin`. Esto nos genera una rchivo binario de `512 bytes`
 
+<div id="mycenter">
 
 ![Propiedades-bootloader](./../Imagenes/propiedades-bootloader.png)
+</div>
+
 Ahora vamos a ver el codigo hexadecimal que se a generado haciendo uso en mi caso de `hexdump`:
 ```batch bach
  hexdump code.bin
 ```
 
--> ![Codigo-bootloader-hex-1](./../Imagenes/Codigo-bootloader-hex-1.png) <-
+<div id="mycenter">
 
+![Codigo-bootloader-hex-1](./../Imagenes/Codigo-bootloader-hex-1.png)
+</div>
 
 
 Como podemos observar, todo el codigo son valores nulos (`0x00 0x00 = 0x0000`) excepto los 2 ultimos bytes del binario que son `0xaa55` como especificamos nosotros. Tmb podemos observas que nos han puesto un hasterisco de por medias el cual indica que nos han acortado el resultado debido a que en esas direciones de memoria se siguen teniendo los mismo valores, los cuales son nulos. Podemos especificar que se nos muestre toda la salida completa con el argumento `-v` en hexdump. Cabe mencionar, que la columna de la izquierda indica la direcion de memoria, y las demas son los datos(el codigo de nuestro binario en hexadecimal), en la posicion `0x0000` de nuestro binario tenemos el valor `0x0`, lo mismo en la posicion `0x0001` y asi hasta la posicion `0x1fe`, que tiene el valor `0xaa` y la posicion `0x1ff` que tiene el valor `0x55`. Estas direciones de memoria se pueden calcular con la columna de la izquierda. Por cada fila, se muestran una cantidad de `16 bytes`, estos van desde `0x0 a 0xf` o lo que es lo mismo en decimal, de `0 a 15`. Para calcular nuestra direcion de memoria en la que se encuentra el byte `0xaa`, situamos la fila mediante la columa de direciones de memoria, nuestra fila en este caso es la `0x01f0`, a continuacion buscamos la columna donde se situa nuestro byte, en esta caso, el byte esta en la columna `0xe` asi que `0x01f0 + 0xe = 0x01fe`, nuestro caracter esta en `0x01fe`.
 
+<div id="mycenter">
 
 |`addres` | `0`| `1`| `2`| `3`| `4`| `5`| `6`| `7`| `8`| `9`| `a`| `b`| `d` |`d`| `e`| `f`|
 |:-------:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
@@ -126,6 +131,9 @@ Como podemos observar, todo el codigo son valores nulos (`0x00 0x00 = 0x0000`) e
 |    *    |....|....|....|....|....|....|....|....|....|....|....|....|....|....|....|....|
 |`00001f0`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`00`|`aa`|`55`|
 |`0000200`|   F|   I|   N|:)  |D   |   E|   L|:(  |   A|   R|   C|   H|   I|   V|   O|   .|
+
+</div>
+
 ----  
 
 Ahora vamos a intentar mostar algo por pantalla, para ello haremos uso de la interupcion `10h = 0x10` del BIOS. Para esto se usa registro para especifar el servicio a usar y su configuracion. Nosotros usaremos los serivicios de video para imprimir informacion y especifar la resolucion mediante el modo de video. Para especificar el modo de video, debemos darle al registro `ah` el valor `0x00`, esto podemos hacerlo con un `mov ah, 0` o con un `xor ah, ah`. En el registro `al`, especificaremos el modo de video que queremos usar, por ejemplo, si ponemos en al el valor 0x00 `mov al, 0x00`, tendremos una resolucion de 40x25 con colores en Blanco y Negro (Monocromatico). Cabe mencionar, que para aplicar los cambios, debemos llamar a la interupcion `10h` mediante un `int 0x10` para efecutar la operacion. A continuacion los distintos modos de video disponibles:
@@ -217,12 +225,21 @@ Y ejecutamos con qemu:
 qemu-system-x86_64 code.bin
 ```
 Podemos ver como se nos a impreso el caracter 'H' en nuestra maquina virtual:
+
+<div id="mycenter">
+
 !["Pantalla-qemu-1"](./../Imagenes/qemu-screen-1.png)
+</div>
+
 Ahora vamos a estudiar el codigo de nuestro bootloader con hexdump y objdump(aunque estudiar el codigo con objdump no es muy fiable si empieza a haber datos, ya que interpretara los datos como instruciones de codigo):
 ```batch bash
 hexdump code.bin
 ```
+
+<div id="mycenter">
+
 !["Codigo-bootloader-hex-2"](./../Imagenes/Codigo-bootloader-hex-2.png)
+</dv>
 
 |`addres` | `0`| `1`| `2`| `3`| `4`| `5`| `6`| `7`| `8`| `9`| `a`| `b`| `d` |`d`| `e`| `f`|
 |:-------:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
@@ -239,6 +256,8 @@ objdump -b binary -M intel -m i8086 -D code.bin
 ```
 con el parametro `-b` especificamos el fomarto del archivo, que es `binary = binario`, con `-M intel` especificamos que la salida nos la de en sintaxis `intel` y no sintaxis `T&AT` que es la que muestra por defecto. `-m i8086` que es la arquitectura, i8086 es lo mismo que x86. `-D` para decir que desensable todas las seciones del programa, y por ultimo especificamos el archivo binario a desensamblar, en mi caso `code.bin`.
 
+<div id="mycenter">
+
 !["Codigo-objdump-1"](./../Imagenes/Codigo-objdump-1.png)
 | Adress | opcode | instrucion |
 |:------:|:------:|:-----------|
@@ -252,6 +271,13 @@ con el parametro `-b` especificamos el fomarto del archivo, que es `binary = bin
 |        | ...    |                            |
 |1fe:    | 55     |push   bp                   |
 |1ff:    | aa     |stos   BYTE PTR es:[di],al  |
-
+</div>
 
 Aqui podemos ver la correspondencia de cada instrucion `asm` a codigo hexadecimal (opcode). Aun asi, esto no es fiable del todo si no sabemos donde se encuentra nuestro datos y donde se encuentra nuestro codigo. Por ejemplo, podemos ver que el `word` `0xaa55` nos lo a interpretado como la instrucion `push bp` y la instrucion `stos BYTE PTR es:[di], al`. Por lo que tenga cuidado con lo que lee. Quitando estos dos opcodes, los demas son correctos. A vecs necesitaremos saber el opcode de una instrucion especifica, esto lo podemos sacas de varias maneras `Metasploit` tiene un script para esta tarea, yo programe una pieza de coidgo que intenta recrear este para realizar la tarea, se llama [get_opcode.c](../get_opcode.md).
+
+<style>
+#mycenter {
+    text-align:center;
+    color: #000;
+}
+</style>
