@@ -318,12 +318,7 @@ flowchart LR
 flowchart TD
     Start --> Stop
 ```
-```mermaid 
 
-```
-```mermaid 
-
-```
 
 ```mermaid 
 flowchart TB
