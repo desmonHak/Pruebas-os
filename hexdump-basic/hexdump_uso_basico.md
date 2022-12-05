@@ -18,8 +18,7 @@ Hexdump es un programa que nos permite __"dumpear"__ un programa binario, es dec
 
 Este codigo lo hemos compilado usando el siguiente comando: [ __`nasm -f bin bin_hex_dump.asm -o code.bin`__ ], lo cual nos genera un binario de 512bytes llamado code.bin.
 
-<div style="display: block; 
-           margin-left: auto;
+<div style="margin-left: auto;
            margin-right: auto;
            text-align: center">
 
