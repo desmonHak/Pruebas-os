@@ -77,10 +77,41 @@ Aqui el valor que se a de colocar en el offset 0x04 de nuestros registros para d
 
 
 ----
-## Requisitos minimos para programar nuestro bootloader simple:
+## Requisitos minimos para programar nuestro bootloader simple: 
 
-- <span style="color:blue">Necesitamos minimo saber `Assembly x86` (`asm`), en especifico estaremos usando sintaxis `intel` y escribiendo codigo de `16 bits` principalmete.</spam>
-- En cuanto al software que necesitaremos minimo sera lo siguiente:
+```diff
++ a -- a --> a
+- b -- b --> s
+```
+a -- a --> a
+b -- b --> s
+
+${\color{red}Letras color rojo}$
+
+
+<details>
+<summary>Menu desplegable </summary>
+<pre>
+488 cd /opt/LLL/controller/laser/
+489 vi LLLSDLaserControl.c
+490 make 
+491 make install
+492 ./sanity_check
+493 ./configure -o test.cfg
+494 vi test.cfg
+495 vi ~/last_will_and_testament.txt
+496 cat /proc/meminfo
+497 ps -a -x -u
+498 kill -9 2207
+499 kill 2208
+500 ps -a -x -u
+501 touch /opt/LLL/run/ok
+502 LLLSDLaserControl -ok1
+</pre>
+</details>
+
+- Necesitamos minimo saber `Assembly x86` (`asm`), en especifico estaremos usando sintaxis `intel` y escribiendo codigo de `16 bits` principalmete.
+- En cuanto al software que necesitaremos minimo sera lo siguiente: 
 
     1. __`nasm`__. Lo usaremos para generar binario planos mediante codigo ensamblador
     2. __`binutools`__ (gcc/g++, hexdump, as, objdump...). Principalmente estaremos aqui usado hexdump y objdump para estudiar nuestro codigo compilado. Aunque si teneis algun desensablador que os guste mas podeis usarlo siempre que lo useis de la forma correcta, recordar que es codigo x86 de 16bits, vuestro desensamblador no a de leer el codigo en 64bits o 32bits sino en 16bits.
