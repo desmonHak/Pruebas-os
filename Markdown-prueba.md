@@ -77,6 +77,257 @@ $$\sqrt[n]{1+x+x^2+x^3+\dots+x^n}$$
 
 ```mermaid 
 
+    gitGraph
+       commit
+       commit
+       branch develop
+       commit
+       commit
+       commit
+       checkout main
+       commit
+       commit
+
+```
+```mermaid 
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+```
+
+```mermaid 
+pie title NETFLIX
+         "Time spent looking for movie" : 90
+         "Time spent watching it" : 10
+```
+```mermaid 
+
+graph LR
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D
+```
+
+```mermaid 
+graph TB
+    sq[Square shape] --> ci((Circle shape))
+
+    subgraph A
+        od>Odd shape]-- Two line<br/>edge comment --> ro
+        di{Diamond with <br/> line break} -.-> ro(Rounded<br>square<br>shape)
+        di==>ro2(Rounded square shape)
+    end
+
+    %% Notice that no text in shape are added here instead that is appended further down
+    e --> od3>Really long text with linebreak<br>in an Odd shape]
+
+    %% Comments after double percent signs
+    e((Inner / circle<br>and some odd <br>special characters)) --> f(,.?!+-*ز)
+
+    cyr[Cyrillic]-->cyr2((Circle shape Начало));
+
+     classDef green fill:#9f6,stroke:#333,stroke-width:2px;
+     classDef orange fill:#f96,stroke:#333,stroke-width:4px;
+     class sq,e green
+     class di orange
+```
+```mermaid 
+sequenceDiagram
+    loop Daily query
+        Alice->>Bob: Hello Bob, how are you?
+        alt is sick
+            Bob->>Alice: Not so good :(
+        else is well
+            Bob->>Alice: Feeling fresh like a daisy
+        end
+
+        opt Extra response
+            Bob->>Alice: Thanks for asking
+        end
+    end
+```
+
+```mermaid 
+flowchart LR
+   a --> b & c--> d
+```
+
+```mermaid 
+flowchart TB
+    A --> C
+    A --> D
+    B --> C
+    B --> D
+```
+
+```mermaid 
+flowchart LR
+    A --o B
+    B --x C
+```
+```mermaid 
+flowchart LR
+    A o--o B
+    B <--> C
+    C x--x D
+```
+```mermaid 
+flowchart TD
+    A[Start] --> B{Is it?}
+    B -->|Yes| C[OK]
+    C --> D[Rethink]
+    D --> B
+    B ---->|No| E[End]
+```
+```mermaid 
+flowchart TD
+    A[Start] --> B{Is it?}
+    B -- Yes --> C[OK]
+    C --> D[Rethink]
+    D --> B
+    B -- No ----> E[End]
+```
+
+
+```mermaid 
+    flowchart LR
+        A["A double quote:#quot;"] -->B["A dec char:#9829;"]
+```
+```mermaid 
+flowchart TB
+    c1-->a2
+    subgraph one
+    a1-->a2
+    end
+    subgraph two
+    b1-->b2
+    end
+    subgraph three
+    c1-->c2
+    end
+```
+```mermaid 
+flowchart TB
+    c1-->a2
+    subgraph ide1 [one]
+    a1-->a2
+    end
+```
+```mermaid 
+flowchart LR
+  subgraph TOP
+    direction TB
+    subgraph B1
+        direction RL
+        i1 -->f1
+    end
+    subgraph B2
+        direction BT
+        i2 -->f2
+    end
+  end
+  A --> TOP --> B
+  B1 --> B2
+```
+```mermaid 
+flowchart LR
+    id1(Start)-->id2(Stop)
+    style id1 fill:#f9f,stroke:#333,stroke-width:4px
+    style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+
+```
+```mermaid 
+flowchart TD
+    B["fab:fa-twitter for peace"]
+    B-->C[fa:fa-ban forbidden]
+    B-->D(fa:fa-spinner);
+    B-->E(A fa:fa-camera-retro perhaps?)
+```
+```mermaid 
+flowchart LR
+   A-. text .-> B
+```
+```mermaid 
+flowchart TD
+    id1(((This is the text in the circle)))
+```
+```mermaid 
+flowchart TD
+    B[\Go shopping/]
+```
+```mermaid 
+flowchart TD
+    A[/Christmas\]
+```
+```mermaid 
+flowchart TD
+    id1[\This is the text in the box\]
+```
+
+```mermaid 
+flowchart TD
+    id1[/This is the text in the box/]
+```
+```mermaid 
+flowchart LR
+    id1{{This is the text in the box}}
+```
+```mermaid 
+flowchart LR
+    id1{{This is the text in the box}}
+```
+
+```mermaid 
+flowchart LR
+    id1>This is the text in the box]
+```
+```mermaid 
+flowchart LR
+    id1((This is the text in the circle))
+```
+```mermaid 
+flowchart LR
+    id1[(Database)]
+```
+```mermaid 
+flowchart LR
+    id1[[This is the text in the box]]
+```
+```mermaid 
+flowchart LR
+    id1([This is the text in the box])
+```
+```mermaid 
+flowchart LR
+    id1(This is the text in the box)
+```
+
+TB - top to bottom
+TD - top-down/ same as top to bottom
+BT - bottom to top
+RL - right to left
+LR - left to right
+
+```mermaid 
+flowchart LR
+    Start --> Stop
+```
+```mermaid 
+flowchart TD
+    Start --> Stop
+```
+```mermaid 
+
+```
+```mermaid 
+
+```
+
+```mermaid 
+flowchart TB
+    A & B--> C & D
 ```
 
 <details>
