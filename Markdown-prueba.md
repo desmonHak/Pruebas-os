@@ -2,8 +2,6 @@
 + a -- a --> a
 - b -- b --> s
 ```
-a -- a --> a
-b -- b --> s
 
 ${\color{red}Letras color rojo}$
 
@@ -65,12 +63,18 @@ sequenceDiagram
       D---Controller:::black-->T["CIMC_RULE('archaptcha,recaptcha,bibot');"]:::black;
 ```
 
-When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are 
+When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are .
+
 $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+
 **The Cauchy-Schwarz Inequality**
+
 $$\alpha, \Alpha, \beta, \Beta, \gamma, \Gamma, \pi, \Pi, \phi, \varphi, \mu, \Phi \cos (2\theta) = \cos^2 \theta - \sin^2 \theta, Esto, usa, latex$$
+
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) x \equiv a \pmod{b}$$
+
 $$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
+
 $$\begin{equation} x = a_0 + 
 \cfrac{1}{a_1 + 
 \cfrac{1}{a_2  + 
