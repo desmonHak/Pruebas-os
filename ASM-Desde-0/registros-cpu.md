@@ -1,7 +1,7 @@
 # Registros de una CPU intel x86
 
 ## - ¿Que es un registro?
-En nuestra `CPU` podemos encontrar unas "memorias" especiales que se llaman registros, estas son mas rapidas que la `RAM` pero tiene un menor tamaño. Su tamaño depende de la arquitectura del procesador y de si el mismo de de 64, 32, 16 u 8bits. Estas memorias especiales las llamamos "registros". Si nuestra CPU es de `32bits`, nosotros no dispondremos de registros de `64bits` obivamente, pero si podremos hacer uso de estos para hacer divisiones de registros, es decir, si nuestro registro mas grande es de `32bits`, podemos dividirlo y tener dos registros de `16bits`, a su vez, uno de estos registros de `16bits` podemos partirlos en 2 registro de `8bits`. Tal vez te preguntes por que alguien querria hacer esto, la respuesta es mas simple de lo que parece y es por temas de compatibilidad. Imaginense que tienen una CPU de `64bits` con sus correspondientes registro de 64 y queremos correr programa de `32bits`, lo que podemos hacer es "dividir" esos registros de `64bits` para obetener los de `32bits`, aunque la otra mitad no se usaran para nada. Este sistema nos permite tener una compatibilidad para ejecutar programas de 64, 32, 16 u 8bits siempre y cuando podamos hacer las divisiones necesarias. 
+En nuestra `CPU` podemos encontrar unas "memorias" especiales que se llaman registros, hay gente que los llaman tambien celdas. Estas son mas rapidas que la `RAM` pero tiene un menor tamaño, "son memorias cache". Su tamaño depende de la arquitectura del procesador y de si el mismo de de 64, 32, 16 u 8bits. Estas memorias especiales las llamamos "registros". Si nuestra CPU es de `32bits`, nosotros no dispondremos de registros de `64bits` obivamente, pero si podremos hacer uso de estos para hacer divisiones de registros, es decir, si nuestro registro mas grande es de `32bits`, podemos dividirlo y tener dos registros de `16bits`, a su vez, uno de estos registros de `16bits` podemos partirlos en 2 registro de `8bits`. Tal vez te preguntes por que alguien querria hacer esto, la respuesta es mas simple de lo que parece y es por temas de compatibilidad. Imaginense que tienen una CPU de `64bits` con sus correspondientes registro de 64 y queremos correr programa de `32bits`, lo que podemos hacer es "dividir" esos registros de `64bits` para obetener los de `32bits`, aunque la otra mitad no se usaran para nada. Este sistema nos permite tener una compatibilidad para ejecutar programas de 64, 32, 16 u 8bits siempre y cuando podamos hacer las divisiones necesarias. 
 Aunque no siempre es por esto, otras veces simplemente querremos optimizar nuestro codigo, y tal vez un registro de `64bits` sea demasiado grande para lo que queremos.
 
 ----
@@ -50,6 +50,9 @@ En realidad creo que nadie los llama asi, pero bueno, para entendernos llamaremo
 |`a16` |  `ax`|
 |`a8l` |  `ah`|
 |`a8h` |  `al`|
+
+Este registro tambien se caracteriza por llamarse acumulador principal y se usa tambien para realizar operaciones aritmeticas aparte de las operaciones de `E/S` ya mencionadas.
+
 ----
 
 ### - Registros de tipo B:
@@ -61,6 +64,9 @@ Estos son los registros `rbx`, `ebx`, `bx`, `bh`, `bl` y los estaremos llamando 
 |`b16` |  `bx`|
 |`b8l` |  `bh`|
 |`b8h` |  `bl`|
+
+Tambien llamado registo base. Los regoistros B son los unicos de proposito general que se puede usar como indice en el direccionamiento indexado. Tambien se suele usar para realizar calculos aritmeticos.
+
 ----
 
 ### - Registros de tipo C:
@@ -72,6 +78,9 @@ Estos son los registros `rcx`, `ecx`, `cx`, `ch`, `cl` y tambien los estaremos l
 |`c16` |  `cx`|
 |`c8l` |  `ch`|
 |`c8h` |  `cl`|
+
+Tambien conocido como registro contador, se suele usar para contener la cantidad de veces que se quiere repetir una operacion.
+
 ----
 
 ### - Registros de tipo D:
@@ -83,6 +92,9 @@ Estos son los registros `rdx`, `edx`, `dx`, `dh`, `dl` por ultimo, estos son los
 |`d16` |  `dx`|
 |`d8l` |  `dh`|
 |`d8h` |  `dl`|
+
+Estos son conocidos tambien como registros de datos. Algunas operaciones de `E/S` (Entrada / Salida) necesitan hacer uso de este. Tambien se utiliza para realizar las operaciones de multiplicacion y division con cifras granes.
+
 ----
 
 ### Curiosidades sobre los registros a tener en cuenta.
@@ -94,5 +106,58 @@ Primero decir por que los registros reales, tiene en su nombre una `l`, o una `h
 |`ch` + `cl`| `cx` |
 |`dh` + `dl`| `dx` |
 
-Esto es asi ya que los registros de `16bits` y superiores se componen de lo que llamamos una parte alta (`hight = h`) de ahi la `h` de los registros `ah`, `bh`, `ch`, `dh` y una parte baja (`low = l`). He de ahi la `l` de los registro de `8bits`, `al`, `bl`, `cl`, `dl`. 
-Nuestro registro `xx` entonces esta formado por su parte alta `bh` y su parte baja `bl`, por lo que si ponemos el byte `0xff` en `bl` y el byte `0xaa` en el registro `bh`, el valor del registro `bx`, es `0xaaff`
+Esto es asi ya que los registros de `16bits` y superiores se componen de lo que llamamos una parte alta (`hight = h`) de ahi la `h` de los registros `ah`, `bh`, `ch`, `dh` y una parte baja (`low = l`). De ahi la `l` de los registro de `8bits`, `al`, `bl`, `cl`, `dl`. 
+Nuestro registro `bx` entonces esta formado por su parte alta `bh` y su parte baja `bl`. Por lo que si ponemos el byte `0xff` en `bl` y el byte `0xaa` en el registro `bh`, el valor del registro `bx`, es `0xaaff`. 
+Ya que en nuestro registro de `16 bits`, la parte alta es el `byte` de la izquierda y la parte baja, el `byte` de la derecha. Siendo `bh` un `word`, que es lo mismo que un valor de `16 bits` o `2 bytes` en este caso.
+
+
+
+```mermaid 
+flowchart TB
+    subgraph RRX
+        subgraph ERX
+            direction RL
+            subgraph RX
+                direction RL
+                RL o--o RH
+            end
+            subgraph NULL
+                direction RL
+                id1(16bits_Sin_Uso)
+            end
+            RX o--o NULL
+        end
+        subgraph NULL.
+            direction RL
+            id2(32bits_Sin_Uso)
+        end
+        NULL. o--o ERX
+    end
+    style id1 fill:#00b3ff,stroke:#087717,stroke-width:4px
+    style id2 fill:#00b3ff,stroke:#087717,stroke-width:6px
+```
+|cabe mencionar que en este diagrama, la letra 'R' se sustituye por la letra del tipo de registro que usted quiera.|
+|:----:|
+
+
+Siguiendo esta logica, la parte baja del registro `eax` es `ax` y la parte baja de `rax` es `eax`. Como puedes ver en el diagrama anterior, las partes altas de los registros `eax` y `rax` no tienen un acesso directo a ellos.
+
+Originalmente, en los procesadores `8086` podemos encontrar los 14 registros de `16bits`.
+Al Byte de la izquierda de `ax`, que es identificado por `ah`, es tambien llamado `byte de orden alto  o byte mas significativo`, mientras que a `al` se le llama el `byte de orden bajo o byte menos significativo.`
+
+----
+
+### Registros Puntero Base(BP) y Puntero Pila(SP).
+Estos registros trabajan de la la mano y se asocian al registro de segmento `ss`. Estos registros se usan en conjunto para manipular el `stack`, tambien conocido como pila. `bp` viene de `Base Pointer` que es lo mismo que `Puntero Base` y `sp` proviene de `Stack Pointer` o `Puntero Stack`. Podeis encontrar mas informacion de estos registros y del uso de la pila en este apartado:
+
+- [Registros BP, SP y la pila.](./sp-bp-pila.md)
+
+Debemos mencionar, que al igual que los registro de tipo `A, B`, `C` y `D`, estos tambien tienen sus versiones en distintos tamaños y colores. Siendo `bpl`, `bp`, `ebp`, `rbp`, las correspondientes versiones de los registros de 8, 16, 32 y 64bits del `Base Pointer`. Y en el caso del `Stack Pointer`, sus registros son `spl`, `sp`, `esp`, `rsp`, siendo de 8, 16, 32 y 64bits. Los registros `sp` y `bo` tambien son conocidos como registros apuntadores, ya que apuntan normalmente a una direcion de memoria.
+
+----
+
+### Registro Puntero de Instrucion(IP)
+Tambien conocido como `instruction pointer`, este registro tiene almacenado la direcion de memoria de la instrucion a ejecutar. Este registro es actualizado de forma automatica por el procesador tras la ejecucion de cada instrucion. Este registro trabaja junto al registro `cs`. En `cs` se especifica la direcion de segmento de codigo y `ip` contiene el desplazamiento dentro del segmento de codigo.
+Si `cs` tiene un valor hexadecimal de `0x1234` y el registro `ip` tiene un valor de `0x0012`, la direcion de la siguiente instrucion a ejecutar es la suma del registro `cs` y del registro `ip`. `cs` + `ip` = `0x1234` + `0x0012` = `0x1246`. La direcion de la siguiente instrucion a ejecutar es `0x1246`.
+El procesador aumenta el valor del registro `ip` acorde al tamaño de la instrucion anterior, si la instrucion anterior ocupaba `3bytes`, el nuevo valor de `ip` es el valor antiguo mas `3bytes`.
+De este registro, el `ip`, tambien e
