@@ -5,13 +5,8 @@ Explicaremos alguna de las arquitecturas mas comunes actualmente:
 ----
 
 ### - Aquitectura hardvard:
-Lo podemos encontrar en sistemas embebidos como Arduino, y se componen por: 
+Lo podemos encontrar en sistemas embebidos como Arduino.
 
-1. `ALU`: Tambien llamada unidad aritmetico logica
-2. `Unidad de control`:
-3. `Registros`:
-4. `Memoria de datos`: almacenaremos datos en ella.
-5. `Memoria de programa`: donde se almacenara el codigo del programa a ejecutar.
 
 ```mermaid 
 flowchart TB
@@ -80,7 +75,7 @@ flowchart TB
             end
             
             subgraph .
-            
+             
                 direction RL
 
                 Cache_de_datos
@@ -101,3 +96,20 @@ flowchart TB
 ```
 
 ----
+
+Actualmente los procesadores de `AMD` y `intel` tiene el mismo conjunto de instrcuiones (`8086`). Esto se debe a que la empresa que creo este conjunto fue intel, y las demas crearon procesadores clonicos que hacian uso del mismo conjunto. Es por esto, que es independiente la marca o fabricante del producto, pues estaran usando este mismo conjunto. Esto se hizo asi para que el software desarollado para procesadores `intel` fuera ompatibles con los procesadores de los demas fabricantes. Adoptando el mismo conjunto de instruciones para tu procesador, esto permite usar el software que se haya diseñado con dicho conjunto de instruciones. No existe mucha diferencia entre un procesador actual, y los procesadores de los años 80 de intel (`8086`) Lo unico que a cambiado y mejorado, es el tamaño de los registros, la eficiencia energetica, el numero de nucleos y etc. Pero en su base, siguen siendo el mismo.
+
+----
+
+### Nuestra CPU (Unidad Central de Procesamiento):
+Se compone por:
+
+1. `(ALU) Unidad Aritmetica Logica`: [ALU](./unidad-aritmetica-logica.md), es un circuito que permite realizar operaciones arimeticas basicas como sumar y restar. Tambien permite realizar operaciones logicas a nivel de bits, conocidas tambien como operaciones `Bitwise`. Estas operaciones en su base son, `not`, `and`, `or`, `xor` y etc. Actualmente los procesadores cuentan con una ALU compleja y potente, de hecho, hay procesadores que tienen una ALU por nucleo.
+   
+2. `(UC) Unidad de control`: Su tarea es buscar las instruciones a ejecutar en la mmeoria, interpretarlas y ejecutarlas ayudandose de la Unidad de Procesamiento. 
+   
+3. `Registros`: Los [registros](./registros-cpu.md) de la cpu son memorias pequeñas y de rapido acesso. 
+   
+4. `Memoria de datos`: almacenaremos datos en ella.
+   
+5. `Memoria de programa`: Se almacenara el codigo del programa a ejecutar.
