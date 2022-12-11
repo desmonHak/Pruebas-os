@@ -180,7 +180,7 @@ Como programadores, nosotros no podemos alterar el registro `ip` de forma direct
 
 Estos registros solo los encontraremos en procesadores de `64bits`. Se usan para escribir y leer datos que podemos almacenar, tal como hariamos con `variables`. Existe 8 de estos registros y solo en procesadores de `64bits`. Tambien tienen sus versiones de 8, 16, 32 y 64bits. De estos registros, los de `64bits` se llaman `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` y `r15`. De los de `32bits` encontramos `r8d`, `r9d`, `r10d`, `r11d`, `r12d`, `r13d`, `r14d`. De los de `16bits` encontramos `r8w`, `r9w`, `r10w`, `r11w`, `r12w`, `r13w`, `r14w`.De los de `8bits` encontramos `r8b`, `r9b`, `r10b`, `r11b`, `r12b`, `r13b`, `r14b`.
 
-12:45
+
 | `64bits` |  `32bits` |  `16bits` |  ` 8bits` |
 |:--------:|:---------:|:---------:|:---------:|
 |   `r8`   |   `r8d`   |   `r8w`   |   `r8b`   |
@@ -191,3 +191,17 @@ Estos registros solo los encontraremos en procesadores de `64bits`. Se usan para
 |   `r13`  |   `r13d`  |   `r13w`  |   `r13b`  |
 |   `r14`  |   `r14d`  |   `r14w`  |   `r14b`  |
 |   `r15`  |   `r15d`  |   `r15w`  |   `r15b`  |
+
+----
+
+### Registros de bandera
+Estos registros se usan para hacer bucles, condicionales, obtener informacion de si se produjo un overflow, si ocurrio un acarrero y etc.
+
+----
+
+### Registros de segmentos
+En estos se almacenan direciones de memoria de donde empieza y acaban los distintos segmentos que a dividido el OS. Saber que segmentos son de datos, que segmento son de instrucciones y etc.
+
+---- 
+### Registro de punto flotante
+Estos registros se usan para hacer calculos en paralelo y de coma flotante(double, float). Forman parte del llamado `juego de intrucciones extendidas x86`. Estos registros usan sus propias instruciones para operar.
