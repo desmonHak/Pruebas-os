@@ -51,7 +51,7 @@ En realidad creo que nadie los llama asi, pero bueno, para entendernos llamaremo
 |`a8l` |  `ah`|
 |`a8h` |  `al`|
 
-Este registro tambien se caracteriza por llamarse acumulador principal y se usa tambien para realizar operaciones aritmeticas aparte de las operaciones de `E/S` ya mencionadas.
+Este registro tambien se caracteriza por llamarse `registro acumulador` y se usa tambien para realizar operaciones aritmeticas aparte de las operaciones de `E/S` ya mencionadas.
 
 ----
 
@@ -65,7 +65,7 @@ Estos son los registros `rbx`, `ebx`, `bx`, `bh`, `bl` y los estaremos llamando 
 |`b8l` |  `bh`|
 |`b8h` |  `bl`|
 
-Tambien llamado registo base. Los regoistros B son los unicos de proposito general que se puede usar como indice en el direccionamiento indexado. Tambien se suele usar para realizar calculos aritmeticos.
+Tambien llamado `registo base`. Los registros B son los unicos de proposito general que se puede usar como indice en el direccionamiento indexado. Tambien se suele usar para realizar calculos aritmeticos.
 
 ----
 
@@ -79,7 +79,7 @@ Estos son los registros `rcx`, `ecx`, `cx`, `ch`, `cl` y tambien los estaremos l
 |`c8l` |  `ch`|
 |`c8h` |  `cl`|
 
-Tambien conocido como registro contador, se suele usar para contener la cantidad de veces que se quiere repetir una operacion.
+Tambien conocido como `registro contador`, se suele usar para contener la cantidad de veces que se quiere repetir una operacion.
 
 ----
 
@@ -93,7 +93,7 @@ Estos son los registros `rdx`, `edx`, `dx`, `dh`, `dl` por ultimo, estos son los
 |`d8l` |  `dh`|
 |`d8h` |  `dl`|
 
-Estos son conocidos tambien como registros de datos. Algunas operaciones de `E/S` (Entrada / Salida) necesitan hacer uso de este. Tambien se utiliza para realizar las operaciones de multiplicacion y division con cifras granes.
+Estos son conocidos tambien como `registro de datos`. Algunas operaciones de `E/S` (Entrada / Salida) necesitan hacer uso de este. Tambien se utiliza para realizar las operaciones de multiplicacion y division con cifras granes.
 
 ----
 
@@ -145,19 +145,49 @@ Siguiendo esta logica, la parte baja del registro `eax` es `ax` y la parte baja 
 Originalmente, en los procesadores `8086` podemos encontrar los 14 registros de `16bits`.
 Al Byte de la izquierda de `ax`, que es identificado por `ah`, es tambien llamado `byte de orden alto  o byte mas significativo`, mientras que a `al` se le llama el `byte de orden bajo o byte menos significativo.`
 
+Los registros de tipo `a`, `b`, `c`, `d` son llamados `registros de proposito general`. Tambien tenemos `registros de banderas`, `registros de segmento`, `registros de apuntadores o de puntero`, `registros indice` y `registros de proposito general extendido`. Los `registros de proposito general` suelen usarse para almacenar los datos con los que se va a realizar una operacion en el programa.
+
+Si no me equivoco, la letra `e` de los registros de `32bits` hace referencia a `extend = extendido` y la letra `r` de los registros de `64bits` hace referencia a `re-extend = re-extendidos`.
+
 ----
 
-### Registros Puntero Base(BP) y Puntero Pila(SP).
+### Registros indice: registro Fuente(SI) y registro Destino(DI).
+La letra `s` hace referencia a `source = fuente` y la letra `d` a `destiny = destino`. De los registros fuentes podemos encontrar su version de 8, 16, 32 y 64 bits, conocidos como `sil`, `si`, `esi` y `rsi`. Y para los registros de destino ta,bien podemos encontrar su version de 8, 16, 32 y 64 bits, conocidos como `dil`, `di`, `edi` y `rdi`. Estos registros se usan para manejar arrays y cadenas(`strings`) principalmente.
+
+----
+
+### Registros Puntero: puntero Base(BP), puntero Pila(SP) y puntero de instruciones(IP):
+
+Estos registros guardara direciones de memoria.
+
+#### Registros BP y SP:
 Estos registros trabajan de la la mano y se asocian al registro de segmento `ss`. Estos registros se usan en conjunto para manipular el `stack`, tambien conocido como pila. `bp` viene de `Base Pointer` que es lo mismo que `Puntero Base` y `sp` proviene de `Stack Pointer` o `Puntero Stack`. Podeis encontrar mas informacion de estos registros y del uso de la pila en este apartado:
 
 - [Registros BP, SP y la pila.](./sp-bp-pila.md)
 
 Debemos mencionar, que al igual que los registro de tipo `A, B`, `C` y `D`, estos tambien tienen sus versiones en distintos tamaños y colores. Siendo `bpl`, `bp`, `ebp`, `rbp`, las correspondientes versiones de los registros de 8, 16, 32 y 64bits del `Base Pointer`. Y en el caso del `Stack Pointer`, sus registros son `spl`, `sp`, `esp`, `rsp`, siendo de 8, 16, 32 y 64bits. Los registros `sp` y `bo` tambien son conocidos como registros apuntadores, ya que apuntan normalmente a una direcion de memoria.
 
-----
-
-### Registro Puntero de Instrucion(IP)
+#### Registro Puntero de Instrucion(IP)
 Tambien conocido como `instruction pointer`, este registro tiene almacenado la direcion de memoria de la instrucion a ejecutar. Este registro es actualizado de forma automatica por el procesador tras la ejecucion de cada instrucion. Este registro trabaja junto al registro `cs`. En `cs` se especifica la direcion de segmento de codigo y `ip` contiene el desplazamiento dentro del segmento de codigo.
 Si `cs` tiene un valor hexadecimal de `0x1234` y el registro `ip` tiene un valor de `0x0012`, la direcion de la siguiente instrucion a ejecutar es la suma del registro `cs` y del registro `ip`. `cs` + `ip` = `0x1234` + `0x0012` = `0x1246`. La direcion de la siguiente instrucion a ejecutar es `0x1246`.
-El procesador aumenta el valor del registro `ip` acorde al tamaño de la instrucion anterior, si la instrucion anterior ocupaba `3bytes`, el nuevo valor de `ip` es el valor antiguo mas `3bytes`.
-De este registro, el `ip`, tambien e
+El procesador aumenta el valor del registro `ip` acorde al tamaño de la instrucion anterior, si la instrucion anterior ocupaba `3bytes`, el nuevo valor de `ip` es el valor antiguo mas 3.
+De este registro, el `ip`, tambien exite sus versiones de 8, 16, 32 y 64 bits, conocidos como `ipl`, `ip`, `eip` y `rip`. No estoy seguro de la existencia del registro `ipl` pero lo incluyo por si acaso y a ver si usted es capaz de encontar algo acerca de el.
+Como programadores, nosotros no podemos alterar el registro `ip` de forma directa, sino con instruciones especificas como `jmp` o `call`.
+
+----
+
+### Los registros de proposito general extendido.
+
+Estos registros solo los encontraremos en procesadores de `64bits`. Se usan para escribir y leer datos que podemos almacenar, tal como hariamos con `variables`. Existe 8 de estos registros y solo en procesadores de `64bits`. Tambien tienen sus versiones de 8, 16, 32 y 64bits. De estos registros, los de `64bits` se llaman `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` y `r15`. De los de `32bits` encontramos `r8d`, `r9d`, `r10d`, `r11d`, `r12d`, `r13d`, `r14d`. De los de `16bits` encontramos `r8w`, `r9w`, `r10w`, `r11w`, `r12w`, `r13w`, `r14w`.De los de `8bits` encontramos `r8b`, `r9b`, `r10b`, `r11b`, `r12b`, `r13b`, `r14b`.
+
+12:45
+| `64bits` |  `32bits` |  `16bits` |  ` 8bits` |
+|:--------:|:---------:|:---------:|:---------:|
+|   `r8`   |   `r8d`   |   `r8w`   |   `r8b`   |
+|   `r9`   |   `r9d`   |   `r9w`   |   `r9b`   |
+|   `r10`  |   `r10d`  |   `r10w`  |   `r10b`  |
+|   `r11`  |   `r11d`  |   `r11w`  |   `r11b`  |
+|   `r12`  |   `r12d`  |   `r12w`  |   `r12b`  |
+|   `r13`  |   `r13d`  |   `r13w`  |   `r13b`  |
+|   `r14`  |   `r14d`  |   `r14w`  |   `r14b`  |
+|   `r15`  |   `r15d`  |   `r15w`  |   `r15b`  |

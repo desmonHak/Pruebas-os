@@ -68,7 +68,7 @@ flowchart TB
             direction RL
 
 
-            subgraph Memoria
+            subgraph Memoria_Primaria
                 direction RL
                 programa
                 datos
@@ -92,7 +92,7 @@ flowchart TB
 
     Cache_de_programa <--> CPU <--> Cache_de_datos
 
-    . <--> Memoria
+    . <--> Memoria_Primaria
 ```
 
 ----
@@ -104,12 +104,12 @@ Actualmente los procesadores de `AMD` y `intel` tiene el mismo conjunto de instr
 ### Nuestra CPU (Unidad Central de Procesamiento):
 Se compone por:
 
-1. `(ALU) Unidad Aritmetica Logica`: [ALU](./unidad-aritmetica-logica.md), es un circuito que permite realizar operaciones arimeticas basicas como sumar y restar. Tambien permite realizar operaciones logicas a nivel de bits, conocidas tambien como operaciones `Bitwise`. Estas operaciones en su base son, `not`, `and`, `or`, `xor` y etc. Actualmente los procesadores cuentan con una ALU compleja y potente, de hecho, hay procesadores que tienen una ALU por nucleo.
+1. `(ALU) Unidad Aritmetica Logica`: [ALU](./unidad-aritmetica-logica.md), es un circuito que permite realizar operaciones arimeticas basicas como sumar y restar. Tambien permite realizar operaciones logicas a nivel de bits, conocidas tambien como operaciones [Bitwise](./bitwise-basicos-md). Estas operaciones en su base son, `not`, `and`, `or`, `xor` y etc. Actualmente los procesadores cuentan con una ALU compleja y potente, de hecho, hay procesadores que tienen una ALU por nucleo.
    
-2. `(UC) Unidad de control`: Su tarea es buscar las instruciones a ejecutar en la mmeoria, interpretarlas y ejecutarlas ayudandose de la Unidad de Procesamiento. 
+2. `(UC) Unidad de control`: Su tarea es buscar las instruciones a ejecutar en la mmeoria, interpretarlas y ejecutarlas ayudandose de la Unidad de Proceso. 
    
-3. `Registros`: Los [registros](./registros-cpu.md) de la cpu son memorias pequeñas y de rapido acesso. 
+3. `Unidad de Proceso`: Esta unidad tiene como fin llevar a cabo las tareas que le encomienda la unidad de control. La unidad de proceso cuenta a su vez con una (FPU)`unidad de coma flotante` para realizar operaciones con numeros reales de forma eficiente. Cuenta con un `registro acumulador` que guarda operandos y resultados de las operaciones. Tiene un `registro de estado` donde se guarda algunas informaciones de las operaciones que se a realizado, como si el valor es cero, o negativo entre otras. Y esta undad cuenta con la `ALU`.
    
-4. `Memoria de datos`: almacenaremos datos en ella.
+4. `Registros`: Los [registros](./registros-cpu.md) de la cpu son memorias pequeñas y de rapido acesso. Como los registros generales, el registro acumulador, el registro de estado entre otros y etc.
    
-5. `Memoria de programa`: Se almacenara el codigo del programa a ejecutar.
+5. `MP`: Tambien llamado como Memoria primaria, memoria princiapal, memooria interna o memoria central, es aquella en la que se almacenan los datos y las intruciones a ejecutar en el caso de las arquitecturas Hardvard modificada. La `MP` se comunica con la `CPU` mediante `buses de datos` y el `bus de direcciones`.
