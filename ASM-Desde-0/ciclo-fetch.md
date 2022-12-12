@@ -1,6 +1,6 @@
 # Ciclo de Fetch
 ----
-Dependiendo del autor las fases pueden varirar pero lo simplificaremos a dos que son:
+Tambien se llama `ciclo de instrucion` y dependiendo del autor las fases pueden varirar pero lo simplificaremos a dos que son:
 
 - Fase de busqueda:
   - Busqueda de la instrciones en la memoria.
