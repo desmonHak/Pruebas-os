@@ -15,3 +15,6 @@ Ensamblador o Assembly es un lenguaje de bajo nivel que podemos usar para aprend
 
 - Stack, Pila, Datos, buffer overflow y etc, importante:
   - [Registros BP, SP y la pila.](./sp-bp-pila.md)
+
+- Modos de direccionamiento.
+  - [Modos de direcionamiento](./modos-direccionamiento.md)
